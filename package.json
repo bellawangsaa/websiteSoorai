@@ -1,0 +1,23 @@
+{
+  "name": "soorai-atelier",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "images": "node scripts/prepare-images.mjs",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.1.0",
+    "@fontsource/instrument-serif": "^5.1.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.14",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5",
+    "vite": "^6.0.0"
+  }
+}
