@@ -5,8 +5,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function initIntro(reduced) {
   if (reduced) return;
-  gsap.from('[data-intro]', {
-    y: 26, opacity: 0, duration: 0.9, stagger: 0.07, ease: 'power3.out', delay: 0.1
+  // masked line reveal — clip only during entrance; tight line-height (1.04)
+  // would shave italic descenders if overflow stayed hidden
+  const lines = gsap.utils.toArray('.hero-title .line');
+  lines.forEach((l) => {
+    l.style.overflow = 'hidden';
+    l.innerHTML = `<span class="line-in" style="display:block">${l.innerHTML}</span>`;
+  });
+  gsap.from('.hero-title .line-in', {
+    yPercent: 115, duration: 1.1, stagger: 0.09, ease: 'power4.out', delay: 0.15,
+    onComplete: () => lines.forEach((l) => { l.style.overflow = 'visible'; })
+  });
+  gsap.from('.hero-label[data-intro]', {
+    y: 26, opacity: 0, duration: 0.9, stagger: 0.07, ease: 'power3.out', delay: 0.5
   });
 }
 

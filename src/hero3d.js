@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 // ponytail: gentilis (serif) ships with three — swap for a converted brand serif later
 import fontUrl from 'three/examples/fonts/gentilis_bold.typeface.json?url';
 
@@ -25,8 +26,9 @@ export function initHero3D() {
   rim.position.set(-5, 2, -4);
   scene.add(rim);
 
-  // matte obsidian — high roughness, near-black, no chrome
-  const mat = new THREE.MeshStandardMaterial({ color: 0x1b1a18, roughness: 0.75, metalness: 0.05 });
+  // chrome — full metalness needs an env map to reflect, or it renders black
+  scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment()).texture;
+  const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.12, metalness: 1 });
   const group = new THREE.Group();
   scene.add(group);
 
